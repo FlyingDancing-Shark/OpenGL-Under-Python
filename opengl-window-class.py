@@ -23,7 +23,8 @@ class Window:
 			
 		glfw.set_window_pos(self._win, 400, 200)
 		glfw.make_context_current(self._win)
-		
+	
+	# invoke by caller at proper time
 	def main_loop(self):
 		
 		# if user click on the cross button on the right top of a pyopengl window, this loop will exit and terminate the process.
@@ -37,7 +38,8 @@ class Window:
 		
 		glfw.terminate()
 		
-# 		
+# if this file (module) isn't import by other file, but running as an independently python program, 
+# it should do the initialization automatically by itself.		
 if __name__ == "__main__":
 	win = Window(1280, 720, "My OpenGL window")
 	win.main_loop()
