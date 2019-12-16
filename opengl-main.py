@@ -1,6 +1,6 @@
 '''
 *********description*********
-the main opengl application using shader ( programmable pipeline) with shader source hard-coded inside.
+the main opengl application using shader ( programmable pipeline) with shader source string hard-coded inside.
 '''
 import opengl-window-class
 from OpenGL.GL import *
