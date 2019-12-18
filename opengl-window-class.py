@@ -12,8 +12,8 @@ class Window:
 	
 	# init() is running each time an instance of Window class is created.
 	# according to Python Class convention, "self" is always the first argument of "__init__()" 
-    def __init__(self, width:int, height:int, title:str):
-        if not glfw.init():
+	def __init__(self, width:int, height:int, title:str):
+    	if not glfw.init():
 			raise Exception("GLFW can not be initialized !")
 		
 		
@@ -28,7 +28,8 @@ class Window:
 			
 		glfw.set_window_pos(self._win, 400, 200)
 		glfw.make_context_current(self._win)
-		
+	
+	
 	# invoke by caller at proper time
 	def main_loop(self):
 		
