@@ -5,10 +5,6 @@
 
 
 import glfw     # thid-party python library handle opengl context initialization, mandatory for this class
-from OpenGL.GL import *
-from OpenGL.GL.shaders import compileProgram, compileShader
-import numpy as np
-
 
 # one possibly usage of this class in other ".py" file : 
 # my_pyopengl_window = Window(1280, 720, "new pyopengl window")
@@ -32,7 +28,7 @@ class Window:
 			
 		glfw.set_window_pos(self._win, 400, 200)
 		glfw.make_context_current(self._win)
-	
+		
 	# invoke by caller at proper time
 	def main_loop(self):
 		
