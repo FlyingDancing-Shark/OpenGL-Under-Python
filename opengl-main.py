@@ -10,7 +10,7 @@ import numpy as np
 
 vertex_src = """
 # version 330 core
-in vec3 a_position;
+in  vec3  a_position;
 
 void main()
 {
@@ -41,11 +41,28 @@ colors = [1.0, 0.0, 0.0,
 np_vertices = np.array(vertices, dtype=np.float32)
 np_colors   = np.array(colors  , dtype=np.float32)
 
-# this internally use glCompileShader() and all the other necessary works to link a 
-# shader program, decrease the coding complexity for programmers. 
+# this internally use glCompileShader() and all the other necessary works(calling chain)
+# to link a shader program, decrease the coding complexity for programmers. 
 shader_program_handle = compileProgram(compileShader(vertex_src, GL_VERTEX_SHADER), \
 				       compileShader(fragment_src, GL_FRAGMENT_SHADER))
 
+# vertex buffer object creation logic
+# notice that in C/C++ programs, this function need a 2nd argument to store the buffer 
+# name, but Python give us unprecedented flexibility and convenience for variable 
+# declaration so that's enough to pass only one parameter in PyOpenGL environment
+VBO = glGenBuffers(1)
+glBindBuffers(GL_ARRAY_BUFFER, VBO)
+
+# "np_vertices.nbytes" store the same information as expression "len(np_vertices) * 4"
+# which is 36 bytes
+glBufferData(GL_ARRAY_BUFFER, len(np_vertices) * 4, np_vertices, GL_STATIC_DRAW)
+
+position = glGetAttribLocation(shader_program_handle, "a_position")
+glEnableVertexAttribArray(position)
+glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(0))
+
+
+glUseProgram(shader_program_handle)
 glClearColor(0, 0.1, 0.1, 1)
 
 
