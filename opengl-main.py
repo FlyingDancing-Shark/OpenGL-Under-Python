@@ -43,6 +43,16 @@ vertices = [-0.5, -0.5, 0.0,	# vertex coordinates
 	     0.0,  1.0, 0.0,
 	     0.0,  0.0, 1.0]
 
+""" 
+# this rearrange with require re-compute the "stride" and "offset" argument of 
+# "glVertexAttribPointer()", as I gave the # comment in corresponding statement 
+
+vertices = [-0.5, -0.5, 0.0, 1.0, 0.0, 0.0,	# each strides 24 bytes	
+	     0.5, -0.5, 0.0, 0.0, 1.0, 0.0,	
+	     0.0,  0.5, 0.0, 0.0, 0.0, 1.0]
+	     		     # color begins at offset = 12 bytes
+"""
+
 np_vertices = np.array(vertices, dtype=np.float32)
 
 # this internally use glCompileShader() and all the other necessary works(calling chain)
@@ -64,11 +74,12 @@ glBufferData(GL_ARRAY_BUFFER, len(np_vertices) * 4, np_vertices, GL_STATIC_DRAW)
 position = glGetAttribLocation(shader_program_handle, "a_position")
 glEnableVertexAttribArray(position)
 glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(0))
+# glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 24, ctypes.c_void_p(0))
 
 color = glGetAttribLocation(shader_program_handle, "vertex_in_color")
 glEnableVertexAttribArray(color)
 glVertexAttribPointer(color, 3, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(36))
-
+# glVertexAttribPointer(color, 3, GL_FLOAT, GL_FALSE, 24, ctypes.c_void_p(12))
 
 glUseProgram(shader_program_handle)
 glClearColor(0, 0.1, 0.1, 1)
