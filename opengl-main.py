@@ -3,8 +3,8 @@
 the main opengl application using shader ( programmable pipeline) with shader source string hard-coded inside.
 '''
 import opengl-window-class
-from OpenGL.GL import *
-import numpy as np
+
+
 
 vertex_src = """
 # version 330 core
