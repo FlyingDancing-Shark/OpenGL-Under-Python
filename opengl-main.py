@@ -7,7 +7,7 @@ from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
 import numpy as np
 
-# "vertex_in_color" 
+# "vertex_in_color" will be actually set at later call to "glGetAttribLocation()"
 vertex_src = """
 # version 330 core
 in  vec3  a_position;
